@@ -8,7 +8,7 @@ export default defineConfig({
 			favicon: '/favicon.png',
 			title: 'My Docs',
 			social: {
-				github: 'https://github.com/withastro/starlight',
+				github: 'https://github.com/diegps/zig-page',
 			},
 			logo: {
 				light: './src/assets/light-logo.svg',
