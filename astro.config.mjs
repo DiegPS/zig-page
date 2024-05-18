@@ -1,12 +1,22 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
-// https://astro.build/config
 export default defineConfig({
 	integrations: [
 		starlight({
 			favicon: '/favicon.png',
-			title: 'My Docs',
+			title: 'Zig Programming Language',
+			defaultLocale: 'root',
+			locales: {
+				root: {
+					label: 'English',
+					lang: 'en',
+				},
+				es: {
+					label: 'Español',
+					lang: 'es',
+				},
+			},
 			social: {
 				github: 'https://github.com/diegps/zig-page',
 			},
