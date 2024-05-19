@@ -85,6 +85,10 @@ export default defineConfig({
 					label: 'Reference',
 					autogenerate: { directory: 'reference' },
 				},
+				{
+					label: 'Zig Software Foundation',
+					autogenerate: { directory: 'zsf' },
+				},
 			],
 		}),
 	],
