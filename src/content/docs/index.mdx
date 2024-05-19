@@ -3,7 +3,7 @@ title: Zig Programming Language
 description: Zig is a general-purpose programming language
 template: splash
 hero:
-  tagline:  maintaining robust, optimal and reusable software.
+  tagline: and toolchain for maintaining robust, optimal and reusable software.
   image:
     file: ../../assets/zero.svg
   actions:
@@ -15,95 +15,91 @@ hero:
       link: documentation/master
       icon: external
 ---
+import { Card, CardGrid } from '@astrojs/starlight/components';
 import GithubSponsors  from '@components/GithubSponsors.astro'
 import MonetarySponsorLogos from '@components/MonetarySponsorLogos.astro'
 import IndexUrl from '@components/IndexUrl.astro'
 
+<CardGrid>
+<article>
+  <Card title="⚡ A Simple Language" icon="star">
+    Focus on debugging your application rather than debugging your programming language knowledge.
+    <li> No hidden control flow.</li>
+    <li> No hidden memory allocations.</li>
+    <li> No preprocessor, no macros.</li>
+  </Card>
+  <Card title="⚡ Comptime" icon="star">
+    A fresh approach to metaprogramming based on compile-time code execution and lazy evaluation.
+    <li> Call any function at compile-time.</li>
+    <li> Manipulate types as values without runtime overhead.</li>
+    <li> Comptime emulates the target architecture.</li>
+  </Card>
+  <Card title="⚡ Maintain it with Zig" icon="star">
+    Incrementally improve your C/C++/Zig codebase.
+    <li> Use Zig as a zero-dependency, drop-in C/C++ compiler that supports cross-compilation out-of-the-box.</li>
+    <li> Leverage `zig build` to create a consistent development environment across all platforms.</li>
+    <li> Add a Zig compilation unit to C/C++ projects, exposing the rich standard library to your C/C++ code.</li>
+  </Card>
+</article>
 
-Zig is a general-purpose programming language and toolchain for maintaining **robust**, **optimal** and **reusable** software.
+<aside>
 
+```zig
+// parse_integers.zig
+const std = @import("std");
+const parseInt = std.fmt.parseInt;
 
+test "parse integers" {
+    const input = "123 67 89,99";
+    const ally = std.testing.allocator;
 
+    var list = std.ArrayList(u32).init(ally);
+    // Ensure the list is freed at scope exit.
+    // Try commenting out this line!
+    defer list.deinit();
 
+    var it = std.mem.tokenizeAny(u8, input, " ,");
+    while (it.next()) |num| {
+        const n = try parseInt(u32, num, 10);
+        try list.append(n);
+    }
 
-# ⚡ A Simple Language
-Focus on debugging your application rather than debugging your programming language knowledge.
+    const expected = [_]u32{ 123, 67, 89, 99 };
 
-- No hidden control flow.
-- No hidden memory allocations.
-- No preprocessor, no macros.
+    for (expected, list.items) |exp, actual| {
+        try std.testing.expectEqual(exp, actual);
+    }
+}
+```
 
-# ⚡ Comptime
-A fresh approach to metaprogramming based on compile-time code execution and lazy evaluation.
-
-- Call any function at compile-time.
-- Manipulate types as values without runtime overhead.
-- Comptime emulates the target architecture.
-
-# ⚡ Maintain it with Zig
-Incrementally improve your C/C++/Zig codebase.
-
-- Use Zig as a zero-dependency, drop-in C/C++ compiler that supports cross-compilation out-of-the-box.
-- Leverage `zig build` to create a consistent development environment across all platforms.
-- Add a Zig compilation unit to C/C++ projects, exposing the rich standard library to your C/C++ code.
-
-
+```bash title="Running tests"
+$ zig test parse_integers.zig
+1/1 parse_integers.test.parse integers... OK
+All 1 tests passed.
+```
 
 <IndexUrl>
     <a href="learn/overview/" class="button" style="color:var(--sl-color-white);text-decoration:none;font-weight: 600;font-size: var(--sl-text-lg);">In-depth overview</a>
 </IndexUrl>
 
-
 <IndexUrl>
     <a href="learn/samples/" class="button" style="color:var(--sl-color-white);text-decoration:none;font-weight: 600;font-size: var(--sl-text-lg);">More code samples</a>
 </IndexUrl>
+      </aside>
+</CardGrid>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# The Zig community is decentralized
+## The Zig community is decentralized
 Anyone is free to start and maintain their own space for the community to gather.
 There is no concept of "official" or "unofficial", however, each gathering place has its own moderators and rules.
-
 
 <IndexUrl>
 	<a href="https://github.com/ziglang/zig/wiki/Community" class="button" style="color:var(--sl-color-white);text-decoration:none;font-weight: 600;font-size: var(--sl-text-lg);">See all Communities</a>
 </IndexUrl>
 
-
-
-
-
-
-
 # Main development
 The Zig repository can be found at [https://github.com/ziglang/zig](https://github.com/ziglang/zig), where we also host the issue tracker and discuss proposals.
 Contributors are expected to follow Zig's [Code of Conduct](https://github.com/ziglang/zig/blob/master/.github/CODE_OF_CONDUCT.md).
-
-
-
-
-
-
-
-
-
 
 ## The ZSF is a 501(c)(3) non-profit corporation.
 
@@ -115,15 +111,10 @@ The Zig Software Foundation is sustained by donations.
 	<a href="zsf/" class="button" style="color:var(--sl-color-white);text-decoration:none;font-weight: 600;font-size: var(--sl-text-lg);">Learn More</a>
 </IndexUrl>
 
-
-
-
-
 # Corporate Sponsors
 The following companies are providing direct financial support to the Zig Software foundation.
 
 <MonetarySponsorLogos/>
-
 
 # GitHub Sponsors
 Thanks to people who [sponsor Zig](zsf/), the project is accountable to the open source community rather than corporate shareholders. In particular, these fine folks sponsor Zig for $200/month or more:
