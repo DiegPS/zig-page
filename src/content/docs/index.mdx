@@ -1,9 +1,9 @@
 ---
-title: Zig Language
-description: Get started building your docs site with zig.
+title: Zig Programming Language
+description: Zig is a general-purpose programming language
 template: splash
 hero:
-  tagline: Congrats on setting up a new zig project!
+  tagline:  maintaining robust, optimal and reusable software.
   image:
     file: ../../assets/zero.svg
   actions:
@@ -12,22 +12,122 @@ hero:
       icon: right-arrow
       variant: primary
     - text: Documentation
-      link: https://zig.astro.build
+      link: /documentation/master
       icon: external
 ---
+import GithubSponsors  from '@components/GithubSponsors.astro'
+import MonetarySponsorLogos from '@components/MonetarySponsorLogos.astro'
+import IndexUrl from '@components/IndexUrl.astro'
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Next steps
+Zig is a general-purpose programming language and toolchain for maintaining **robust**, **optimal** and **reusable** software.
 
-<CardGrid stagger>
-	<Card title="Update content" icon="information">
-		Edit `src/content/docs/index.mdx` to see this page change.
-	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
-	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
-</CardGrid>
+
+
+
+
+# ⚡ A Simple Language
+Focus on debugging your application rather than debugging your programming language knowledge.
+
+- No hidden control flow.
+- No hidden memory allocations.
+- No preprocessor, no macros.
+
+# ⚡ Comptime
+A fresh approach to metaprogramming based on compile-time code execution and lazy evaluation.
+
+- Call any function at compile-time.
+- Manipulate types as values without runtime overhead.
+- Comptime emulates the target architecture.
+
+# ⚡ Maintain it with Zig
+Incrementally improve your C/C++/Zig codebase.
+
+- Use Zig as a zero-dependency, drop-in C/C++ compiler that supports cross-compilation out-of-the-box.
+- Leverage `zig build` to create a consistent development environment across all platforms.
+- Add a Zig compilation unit to C/C++ projects, exposing the rich standard library to your C/C++ code.
+
+
+
+<IndexUrl>
+    <a href="learn/overview/" class="button" style="color:var(--sl-color-white);text-decoration:none;font-weight: 600;font-size: var(--sl-text-lg);">In-depth overview</a>
+</IndexUrl>
+
+
+<IndexUrl>
+    <a href="learn/samples/" class="button" style="color:var(--sl-color-white);text-decoration:none;font-weight: 600;font-size: var(--sl-text-lg);">More code samples</a>
+</IndexUrl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# The Zig community is decentralized
+Anyone is free to start and maintain their own space for the community to gather.
+There is no concept of "official" or "unofficial", however, each gathering place has its own moderators and rules.
+
+
+<IndexUrl>
+	<a href="https://github.com/ziglang/zig/wiki/Community" class="button" style="color:var(--sl-color-white);text-decoration:none;font-weight: 600;font-size: var(--sl-text-lg);">See all Communities</a>
+</IndexUrl>
+
+
+
+
+
+
+
+# Main development
+The Zig repository can be found at [https://github.com/ziglang/zig](https://github.com/ziglang/zig), where we also host the issue tracker and discuss proposals.
+Contributors are expected to follow Zig's [Code of Conduct](https://github.com/ziglang/zig/blob/master/.github/CODE_OF_CONDUCT.md).
+
+
+
+
+
+
+
+
+
+
+## The ZSF is a 501(c)(3) non-profit corporation.
+
+The Zig Software Foundation is a non-profit corporation founded in 2020 by Andrew Kelley, the creator of Zig, with the goal of supporting the development of the language. Currently, the ZSF is able to offer paid work at competitive rates to a small number of core contributors. We hope to be able to extend this offer to more core contributors in the future.
+
+The Zig Software Foundation is sustained by donations.
+
+<IndexUrl>
+	<a href="zsf/" class="button" style="display:inline;">Learn More</a>
+</IndexUrl>
+
+
+
+
+
+# Corporate Sponsors
+The following companies are providing direct financial support to the Zig Software foundation.
+
+<MonetarySponsorLogos/>
+
+
+# GitHub Sponsors
+Thanks to people who [sponsor Zig](zsf/), the project is accountable to the open source community rather than corporate shareholders. In particular, these fine folks sponsor Zig for $200/month or more:
+
+<GithubSponsors/>
+
+This section is updated at the beginning of each month.

@@ -1,5 +1,95 @@
 ---
-
+import PexLogo from "../assets/sponsors/pex-logo.svg";
+import CoilLogo from "../assets/sponsors/coil-logo.svg";
+import TigerBeetleLogo from "../assets/sponsors/tigerbeetle-logo.png";
+import ShiguredoLogo from "../assets/sponsors/shiguredo-logo.png";
+import { Image } from "astro:assets";
+interface Sponsor {
+  name: string;
+  img: ImageMetadata;
+  url: string;
+  size?: "large";
+}
+const sponsors: Sponsor[] = [
+  {
+    name: "Pex Sponsor",
+    img: PexLogo,
+    url: "https://pex.com",
+  },
+  {
+    name: "Coil Sponsor",
+    img: CoilLogo,
+    url: "https://coil.com",
+  },
+  {
+    name: "TigerBeetle Sponsor",
+    img: TigerBeetleLogo,
+    url: "https://tigerbeetle.com",
+  },
+  {
+    name: "Shiguredo Sponsor",
+    img: ShiguredoLogo,
+    url: "https://shiguredo.jp",
+  },
+];
 ---
 
-Monetary Sponsors
+<section>
+  {
+    sponsors.map((sponsor) => (
+      <a href={sponsor.url} class={sponsor.size ?? ""}>
+        <article>
+          <h4>{sponsor.name}</h4>
+          <Image
+            height={sponsor.size === "large" ? 100 : 50}
+            src={sponsor.img}
+            alt={sponsor.name}
+          />
+        </article>
+      </a>
+    ))
+  }
+</section>
+
+<style>
+  section {
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    gap: 0.25rem;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  a {
+    width: 34%;
+    flex-grow: 1;
+  }
+  a.large {
+    width: 100%;
+  }
+  article {
+    display: flex;
+    background-color: var(--sl-color-gray-6);
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    width: 100%;
+  }
+  article:hover {
+    filter: brightness(1.1);
+    transition: all 0.2s ease-in-out;
+  }
+  h4 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    white-space: nowrap;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    overflow: hidden;
+  }
+  :root[data-theme="dark"] article :global(img) {
+    filter: grayscale(1) invert(1) !important;
+  }
+</style>

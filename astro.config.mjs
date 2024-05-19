@@ -12,9 +12,57 @@ export default defineConfig({
 					label: 'English',
 					lang: 'en',
 				},
+				ar: {
+					label: 'العربية',
+					lang: 'ar',
+				},
+				de: {
+					label: 'Deutsch',
+					lang: 'de',
+				},
 				es: {
 					label: 'Español',
 					lang: 'es',
+				},
+				fa: {
+					label: 'فارسی',
+					lang: 'fa',
+				},
+				fr: {
+					label: 'Français',
+					lang: 'fr',
+				},
+				id: {
+					label: 'Bahasa Indonesia',
+					lang: 'id',
+				},
+				it: {
+					label: 'Italiano',
+					lang: 'it',
+				},
+				ja: {
+					label: '日本語',
+					lang: 'ja',
+				},
+				ko: {
+					label: '한국어',
+					lang: 'ko',
+				},
+				pt: {
+					label: 'Português',
+					lang: 'pt',
+				},
+				ru: {
+					label: 'Русский',
+					lang: 'ru',
+				},
+				tr: {
+					label: 'Türkçe',
+					lang: 'tr',
+				},
+				zh: {
+					label: '中文',
+					lang: 'zh',
 				},
 			},
 			social: {
