@@ -1,0 +1,155 @@
+---
+import Releases from "../../public/releases.json";
+const arrayDeArrays = Object.entries(Releases).map(([key, value]) => {
+  return [key, value];
+});
+
+const allReleases: any = arrayDeArrays.map((release: any) => {
+  const version = release[0];
+  const information = release[1];
+  const informationCleaned = {
+    documentation: information.docs,
+    notes: information.notes ?? "",
+    stdDocs: information.stdDocs ?? "",
+    source: {
+      sourceBootstrap: information.bootstrap ?? "",
+      src: information.src ?? "",
+    },
+    windows: {
+      aarch64: information["aarch64-windows"] ?? "",
+      x86_64: information["x86_64-windows"] ?? "",
+      i386: information["i386-windows"] ?? "",
+    },
+    macos: {
+      aarch64: information["aarch64-macos"] ?? "",
+      "x86_64-macos": information["x86_64-macos"] ?? "",
+    },
+    linux: {
+      aarch64: information["aarch64-linux"] ?? "",
+      armv7a: information["armv7a-linux"] ?? "",
+      i386: information["i386-linux"] ?? "",
+      riscv64: information["riscv64-linux"] ?? "",
+      x86_64: information["x86_64-linux"] ?? "",
+    },
+    freebsd: {
+      x86_64: information["x86_64-freebsd"] ?? "",
+    },
+  };
+  return {
+    version,
+    information: informationCleaned,
+  };
+});
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+---
+
+{
+  allReleases.map(
+    ({
+      version,
+      information: {
+        documentation,
+        stdDocs,
+        notes,
+        source,
+        windows,
+        linux,
+        macos,
+        freebsd,
+      },
+    }: any) => {
+      return (
+        <>
+          <h2>{version}</h2>
+          <p>
+            <strong>Documentation:</strong> {documentation}
+          </p>
+          {stdDocs && (
+            <p>
+              <strong>Standard Library Documentation:</strong> {stdDocs}
+            </p>
+          )}
+          {notes && (
+            <p>
+              <strong>Release Notes:</strong> {notes}
+            </p>
+          )}
+          <Tabs syncKey="os">
+            <TabItem label="Source" icon="seti:zig">
+              <Tabs>
+                <TabItem label="Only Source">{source.src}</TabItem>
+                {source.sourceBootstrap && (
+                  <TabItem label="Source with Bootstrap">
+                    {source.sourceBootstrap}
+                  </TabItem>
+                )}
+              </Tabs>
+            </TabItem>
+            <TabItem label="Windows" icon="laptop">
+              <Tabs>
+                {windows.x86_64 && (
+                  <TabItem label="x86_64" icon="seti:config">
+                    {windows.x86_64}
+                  </TabItem>
+                )}
+                {windows.aarch64 && (
+                  <TabItem label="aarch64" icon="seti:config">
+                    {windows.aarch64}
+                  </TabItem>
+                )}
+                {windows.i386 && (
+                  <TabItem label="i386" icon="seti:config">
+                    {windows.i386}
+                  </TabItem>
+                )}
+              </Tabs>
+            </TabItem>
+            {(linux.x86_64 ||
+              linux.aarch64 ||
+              linux.armv7a ||
+              linux.i386 ||
+              linux.riscv64) && (
+              <TabItem label={"Linux"} icon="linux">
+                <Tabs>
+                  {linux.x86_64 && (
+                    <TabItem label="x86_64">{linux.x86_64}</TabItem>
+                  )}
+                  {linux.aarch64 && (
+                    <TabItem label="aarch64">{linux.aarch64}</TabItem>
+                  )}
+                  {linux.armv7a && (
+                    <TabItem label="armv7a">{linux.armv7a}</TabItem>
+                  )}
+                  {linux.i386 && <TabItem label="i386">{linux.i386}</TabItem>}
+                  {linux.riscv64 && (
+                    <TabItem label="riscv64">{linux.riscv64}</TabItem>
+                  )}
+                </Tabs>
+              </TabItem>
+            )}
+
+            {(macos.aarch64 || macos["x86_64-macos"]) && (
+              <TabItem label="MacOS" icon="apple">
+                {macos["x86_64-macos"] && (
+                  <TabItem label="x86_64" icon="seti:config">
+                    {macos["x86_64-macos"]}
+                  </TabItem>
+                )}
+                {macos.aarch64 && (
+                  <TabItem label="aarch64" icon="seti:config">
+                    {macos.aarch64}
+                  </TabItem>
+                )}
+              </TabItem>
+            )}
+            {freebsd.x86_64 && (
+              <TabItem label="FreeBSD" icon="setting">
+                <TabItem label="x86_64">{freebsd.x86_64}</TabItem>
+              </TabItem>
+            )}
+          </Tabs>
+        </>
+      );
+    },
+  )
+}
