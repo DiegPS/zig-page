@@ -15,13 +15,11 @@ hero:
       link: documentation/master
       icon: external
 ---
-import { Card, CardGrid } from '@astrojs/starlight/components';
 import GithubSponsors  from '@components/GithubSponsors.astro'
 import MonetarySponsorLogos from '@components/MonetarySponsorLogos.astro'
 import IndexUrl from '@components/IndexUrl.astro'
+import {Card} from '@astrojs/starlight/components'
 
-<CardGrid>
-<article>
   <Card title="⚡ A Simple Language" icon="star">
     Focus on debugging your application rather than debugging your programming language knowledge.
     <li> No hidden control flow.</li>
@@ -40,11 +38,9 @@ import IndexUrl from '@components/IndexUrl.astro'
     <li> Leverage `zig build` to create a consistent development environment across all platforms.</li>
     <li> Add a Zig compilation unit to C/C++ projects, exposing the rich standard library to your C/C++ code.</li>
   </Card>
-</article>
 
-<aside>
 
-```zig
+```zig wrap
 // parse_integers.zig
 const std = @import("std");
 const parseInt = std.fmt.parseInt;
@@ -77,7 +73,7 @@ $ zig test parse_integers.zig
 1/1 parse_integers.test.parse integers... OK
 All 1 tests passed.
 ```
-<CardGrid>
+
 <IndexUrl>
     <a href="learn/overview/" class="button" style="color:var(--sl-color-white);text-decoration:none;font-weight: 600;font-size: var(--sl-text-lg);">In-depth overview</a>
 </IndexUrl>
@@ -85,9 +81,6 @@ All 1 tests passed.
 <IndexUrl>
     <a href="learn/samples/" class="button" style="color:var(--sl-color-white);text-decoration:none;font-weight: 600;font-size: var(--sl-text-lg);">More code samples</a>
 </IndexUrl>
-</CardGrid>
-      </aside>
-</CardGrid>
 
 
 ## The Zig community is decentralized
