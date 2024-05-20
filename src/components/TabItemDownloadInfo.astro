@@ -1,0 +1,21 @@
+---
+const { os, arch, downloadInfo } = Astro.props;
+import { TabItem } from "@astrojs/starlight/components";
+function bytesToMB(bytes: number) {
+  const megabytes = bytes / (1024 * 1024);
+  return megabytes.toFixed(2) + " MB";
+}
+const { tarball, shasum, size } = downloadInfo;
+---
+
+{
+  downloadInfo && (
+    <TabItem label={arch} icon="seti:config">
+      <p>
+        <a href={tarball}>Download</a>
+      </p>
+      <p>Shasum: {shasum}</p>
+      <p>Size: {bytesToMB(size)}</p>
+    </TabItem>
+  )
+}

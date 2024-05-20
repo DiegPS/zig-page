@@ -22,7 +22,7 @@ const allReleases: any = arrayDeArrays.map((release: any) => {
     },
     macos: {
       aarch64: information["aarch64-macos"] ?? "",
-      "x86_64-macos": information["x86_64-macos"] ?? "",
+      x86_64: information["x86_64-macos"] ?? "",
     },
     linux: {
       aarch64: information["aarch64-linux"] ?? "",
@@ -30,6 +30,7 @@ const allReleases: any = arrayDeArrays.map((release: any) => {
       i386: information["i386-linux"] ?? "",
       riscv64: information["riscv64-linux"] ?? "",
       x86_64: information["x86_64-linux"] ?? "",
+      powerpc64le: information["powerpc64le-linux"] ?? "",
     },
     freebsd: {
       x86_64: information["x86_64-freebsd"] ?? "",
@@ -40,6 +41,7 @@ const allReleases: any = arrayDeArrays.map((release: any) => {
     information: informationCleaned,
   };
 });
+import TabItemDownloadInfo from "@components/TabItemDownloadInfo.astro";
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 ---
 
@@ -60,7 +62,7 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
     }: any) => {
       return (
         <>
-          <h2>{version}</h2>
+          <h2>{version === "master" ? "Master" : version}</h2>
           <p>
             <strong>Documentation:</strong> {documentation}
           </p>
@@ -77,74 +79,102 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
           <Tabs syncKey="os">
             <TabItem label="Source" icon="seti:zig">
               <Tabs>
-                <TabItem label="Only Source">{source.src}</TabItem>
-                {source.sourceBootstrap && (
-                  <TabItem label="Source with Bootstrap">
-                    {source.sourceBootstrap}
-                  </TabItem>
-                )}
+                <TabItemDownloadInfo
+                  os="source"
+                  arch="Only Source"
+                  downloadInfo={source.src}
+                />
+                <TabItemDownloadInfo
+                  os="source"
+                  arch="Source with Bootstrapp"
+                  downloadInfo={source.sourceBootstrap}
+                />
               </Tabs>
             </TabItem>
             <TabItem label="Windows" icon="laptop">
               <Tabs>
-                {windows.x86_64 && (
-                  <TabItem label="x86_64" icon="seti:config">
-                    {windows.x86_64}
-                  </TabItem>
-                )}
-                {windows.aarch64 && (
-                  <TabItem label="aarch64" icon="seti:config">
-                    {windows.aarch64}
-                  </TabItem>
-                )}
-                {windows.i386 && (
-                  <TabItem label="i386" icon="seti:config">
-                    {windows.i386}
-                  </TabItem>
-                )}
+                <TabItemDownloadInfo
+                  os="windows"
+                  arch="x86_64"
+                  downloadInfo={windows.x86_64}
+                />
+                <TabItemDownloadInfo
+                  os="windows"
+                  arch="aarch64"
+                  downloadInfo={windows.aarch64}
+                />
+                <TabItemDownloadInfo
+                  os="windows"
+                  arch="i386"
+                  downloadInfo={windows.i386}
+                />
               </Tabs>
             </TabItem>
             {(linux.x86_64 ||
               linux.aarch64 ||
               linux.armv7a ||
               linux.i386 ||
-              linux.riscv64) && (
+              linux.riscv64 ||
+              linux.powerpc64le) && (
               <TabItem label={"Linux"} icon="linux">
                 <Tabs>
-                  {linux.x86_64 && (
-                    <TabItem label="x86_64">{linux.x86_64}</TabItem>
-                  )}
-                  {linux.aarch64 && (
-                    <TabItem label="aarch64">{linux.aarch64}</TabItem>
-                  )}
-                  {linux.armv7a && (
-                    <TabItem label="armv7a">{linux.armv7a}</TabItem>
-                  )}
-                  {linux.i386 && <TabItem label="i386">{linux.i386}</TabItem>}
-                  {linux.riscv64 && (
-                    <TabItem label="riscv64">{linux.riscv64}</TabItem>
-                  )}
+                  <TabItemDownloadInfo
+                    os="linux"
+                    arch="x86_64"
+                    downloadInfo={linux.x86_64}
+                  />
+                  <TabItemDownloadInfo
+                    os="linux"
+                    arch="aarch64"
+                    downloadInfo={linux.aarch64}
+                  />
+                  <TabItemDownloadInfo
+                    os="linux"
+                    arch="armv7a"
+                    downloadInfo={linux.armv7a}
+                  />
+                  <TabItemDownloadInfo
+                    os="linux"
+                    arch="i386"
+                    downloadInfo={linux.i386}
+                  />
+                  <TabItemDownloadInfo
+                    os="linux"
+                    arch="riscv64"
+                    downloadInfo={linux.riscv64}
+                  />
+                  <TabItemDownloadInfo
+                    os="linux"
+                    arch="powerpc64le"
+                    downloadInfo={linux.powerpc64le}
+                  />
                 </Tabs>
               </TabItem>
             )}
 
-            {(macos.aarch64 || macos["x86_64-macos"]) && (
+            {(macos.aarch64 || macos["x86_64"]) && (
               <TabItem label="MacOS" icon="apple">
-                {macos["x86_64-macos"] && (
-                  <TabItem label="x86_64" icon="seti:config">
-                    {macos["x86_64-macos"]}
-                  </TabItem>
-                )}
-                {macos.aarch64 && (
-                  <TabItem label="aarch64" icon="seti:config">
-                    {macos.aarch64}
-                  </TabItem>
-                )}
+                <Tabs>
+                  <TabItemDownloadInfo
+                    os="macos"
+                    arch="x86_64"
+                    downloadInfo={macos["x86_64"]}
+                  />
+                  <TabItemDownloadInfo
+                    os="macos"
+                    arch="aarch64"
+                    downloadInfo={macos.aarch64}
+                  />
+                </Tabs>
               </TabItem>
             )}
             {freebsd.x86_64 && (
-              <TabItem label="FreeBSD" icon="setting">
-                <TabItem label="x86_64">{freebsd.x86_64}</TabItem>
+              <TabItem label="FreeBSD" icon="apple">
+                <TabItemDownloadInfo
+                  os="FreeBSD"
+                  arch="x86_64"
+                  downloadInfo={freebsd.x86_64}
+                />
               </TabItem>
             )}
           </Tabs>
