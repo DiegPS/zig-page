@@ -1,0 +1,20 @@
+---
+const { source } = Astro.props;
+import TabItemDownloadInfo from "@components/TabItemDownloadInfo.astro";
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+---
+
+<TabItem label="Source" icon="seti:zig">
+  <Tabs>
+    <TabItemDownloadInfo
+      os="source"
+      arch="Only Source"
+      downloadInfo={source.src}
+    />
+    <TabItemDownloadInfo
+      os="source"
+      arch="Source with Bootstrapp"
+      downloadInfo={source.sourceBootstrap}
+    />
+  </Tabs>
+</TabItem>

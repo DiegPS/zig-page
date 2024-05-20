@@ -1,0 +1,45 @@
+---
+const { linux } = Astro.props;
+import TabItemDownloadInfo from "@components/TabItemDownloadInfo.astro";
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+---
+
+{
+  (linux.x86_64 ||
+    linux.aarch64 ||
+    linux.armv7a ||
+    linux.i386 ||
+    linux.riscv64 ||
+    linux.powerpc64le) && (
+    <TabItem label={"Linux"} icon="linux">
+      <Tabs>
+        <TabItemDownloadInfo
+          os="linux"
+          arch="x86_64"
+          downloadInfo={linux.x86_64}
+        />
+        <TabItemDownloadInfo
+          os="linux"
+          arch="aarch64"
+          downloadInfo={linux.aarch64}
+        />
+        <TabItemDownloadInfo
+          os="linux"
+          arch="armv7a"
+          downloadInfo={linux.armv7a}
+        />
+        <TabItemDownloadInfo os="linux" arch="i386" downloadInfo={linux.i386} />
+        <TabItemDownloadInfo
+          os="linux"
+          arch="riscv64"
+          downloadInfo={linux.riscv64}
+        />
+        <TabItemDownloadInfo
+          os="linux"
+          arch="powerpc64le"
+          downloadInfo={linux.powerpc64le}
+        />
+      </Tabs>
+    </TabItem>
+  )
+}

@@ -1,0 +1,21 @@
+---
+const { windows } = Astro.props;
+import TabItemDownloadInfo from "@components/TabItemDownloadInfo.astro";
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+---
+
+<TabItem label="Windows" icon="laptop">
+  <Tabs>
+    <TabItemDownloadInfo
+      os="windows"
+      arch="x86_64"
+      downloadInfo={windows.x86_64}
+    />
+    <TabItemDownloadInfo
+      os="windows"
+      arch="aarch64"
+      downloadInfo={windows.aarch64}
+    />
+    <TabItemDownloadInfo os="windows" arch="i386" downloadInfo={windows.i386} />
+  </Tabs>
+</TabItem>

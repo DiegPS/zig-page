@@ -1,0 +1,17 @@
+---
+const { freebsd } = Astro.props;
+import TabItemDownloadInfo from "@components/TabItemDownloadInfo.astro";
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+---
+
+{
+  freebsd.x86_64 && (
+    <TabItem label="FreeBSD" icon="apple">
+      <TabItemDownloadInfo
+        os="FreeBSD"
+        arch="x86_64"
+        downloadInfo={freebsd.x86_64}
+      />
+    </TabItem>
+  )
+}

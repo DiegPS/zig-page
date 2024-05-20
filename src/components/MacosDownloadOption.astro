@@ -1,0 +1,24 @@
+---
+const { macos } = Astro.props;
+import TabItemDownloadInfo from "@components/TabItemDownloadInfo.astro";
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+---
+
+{
+  (macos.aarch64 || macos["x86_64"]) && (
+    <TabItem label="MacOS" icon="apple">
+      <Tabs>
+        <TabItemDownloadInfo
+          os="macos"
+          arch="x86_64"
+          downloadInfo={macos["x86_64"]}
+        />
+        <TabItemDownloadInfo
+          os="macos"
+          arch="aarch64"
+          downloadInfo={macos.aarch64}
+        />
+      </Tabs>
+    </TabItem>
+  )
+}

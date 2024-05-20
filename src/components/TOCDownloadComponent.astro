@@ -6,10 +6,23 @@ import FreebsdDownloadOption from "./FreebsdDownloadOption.astro";
 import LinuxDownloadOption from "./LinuxDownloadOption.astro";
 import WindowsDownloadOption from "./WindowsDownloadOption.astro";
 import SourceDownloadOption from "./SourceDownloadOption.astro";
+
+const html = await Astro.slots.render("default");
+const slot = html.match(/<h2 id="(.*)">/);
+let slotValue: string | null = null;
+if (slot) {
+  slotValue = slot[1];
+}
+const release = [
+  allReleases.find(({ version }: any) => {
+    const versionWithoutDots = version.replaceAll(".", "");
+    return versionWithoutDots === slotValue;
+  }),
+];
 ---
 
 {
-  allReleases.map(
+  release.map(
     ({
       version,
       information: {
@@ -23,9 +36,14 @@ import SourceDownloadOption from "./SourceDownloadOption.astro";
         freebsd,
       },
     }: any) => {
+      const versionWithoutDots = version.replaceAll(".", "");
+      if (slotValue !== versionWithoutDots) {
+        return;
+      }
+
       return (
         <>
-          <h2>{version === "master" ? "Master" : version}</h2>
+          {<slot />}
           <p>
             <strong>Documentation:</strong> {documentation}
           </p>
