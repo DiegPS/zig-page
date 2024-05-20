@@ -1,9 +1,9 @@
 ---
 title: Zig Programming Language
-description: Zig is a general-purpose programming language
+description: Zig es un lenguaje de programación de propósito general
 template: splash
 hero:
-  tagline:  maintaining robust, optimal and reusable software.
+  tagline: y una cadena de herramientas para mantener software robusto, óptimo y reusable.
   image:
     file: ../../../assets/zero.svg
   actions:
@@ -18,36 +18,62 @@ hero:
 import GithubSponsors  from '@components/GithubSponsors.astro'
 import MonetarySponsorLogos from '@components/MonetarySponsorLogos.astro'
 import IndexUrl from '@components/IndexUrl.astro'
+import {Card} from '@astrojs/starlight/components'
 
+<Card title="⚡ Un Lenguaje Simple" icon="star">
+  Enfócate en depurar tu aplicación en vez de depurar tu conocimiento del lenguaje
+  <li> Sin control de flujo oculto.</li>
+  <li> Sin asignaciones de memoria ocultas.</li>
+  <li> Sin preprocesador, sin macros.</li>
+</Card>
 
-Zig es un lenguaje de programación de propósito general y una cadena de herramientas para mantener software **robusto**, **óptimo** y **reusable**.
+<Card title="⚡ Comptime" icon="star">
+  Un enfoque fresco hacia la meta-programación basada en ejecución de código en tiempo de compilación y evaluación tardía (lazy evaluation).
+  <li> Llama cualquier función en tiempo de compilación.</li>
+  <li> Manipula tipos como si fuesen valores sin penalizar el tiempo de ejecución.</li>
+  <li> Comptime emula la arquitectura objetivo.</li>
+</Card>
 
+<Card title="⚡ Mantenlo con Zig" icon="star">
+  Mejora incrementalmente tu base de código C/C++/Zig.
+  <li> Usa Zig como un compilador C/C++ independiente de dependencias que soporta compilación cruzada de forma nativa.</li>
+  <li> Aprovecha `zig build` para crear un entorno de desarrollo consistente en todas las plataformas.</li>
+  <li> Agrega una unidad de compilación Zig a proyectos C/C++, exponiendo la rica biblioteca estándar a tu código C/C++.</li>
+</Card>
 
+```zig wrap
+// parse_integers.zig
+const std = @import("std");
+const parseInt = std.fmt.parseInt;
 
+test "parse integers" {
+    const input = "123 67 89,99";
+    const ally = std.testing.allocator;
 
+    var list = std.ArrayList(u32).init(ally);
+    // Asegúrate de que la lista se libere al salir del ámbito.
+    // ¡Intenta comentar esta línea!
+    defer list.deinit();
 
-# ⚡ Un Lenguaje Simple
-Enfócate en depurar tu aplicación en vez de depurar tu conocimiento del lenguaje
+    var it = std.mem.tokenizeAny(u8, input, " ,");
+    while (it.next()) |num| {
+        const n = try parseInt(u32, num, 10);
+        try list.append(n);
+    }
 
-- Sin control de flujo oculto.
-- Sin asignaciones de memoria ocultas
-- Sin preprocesador, sin macros.
+    const expected = [_]u32{ 123, 67, 89, 99 };
 
-# ⚡ Comptime
-Un enfoque fresco hacia la meta-programación basada en ejecución de código en tiempo de compilación y evaluación tardía (lazy evaluation). 
+    for (expected, list.items) |exp, actual| {
+        try std.testing.expectEqual(exp, actual);
+    }
+}
+```
 
-- Llama cualquier función en tiempo de compilación.
-- Manipula tipos como si fuesen valores sin penalizar el tiempo de ejecución.
-- Comptime emula la arquitectura objetivo.
-
-# ⚡ Desempeño y Seguridad
-Escribe código claro y rápido capaz de manejar todas las condiciones de error.
-
-- Zig guía en forma eficaz tu lógica de tratamiento de errores.
-- Los chequeos configurables de tiempo de ejecución te ayudan a alcanzar un balance entre desempeño y garantías de seguridad.
-- Aprovecha las ventajas de los tipos vector para expresar instrucciones SIMD en forma portable.
-
-
+```bash title="Ejecutando pruebas"
+$ zig test parse_integers.zig
+1/1 parse_integers.test.parse integers... OK
+All 1 tests passed.
+```
 
 <IndexUrl>
     <a href="learn/overview/" class="button" style="color:var(--sl-color-white);text-decoration:none;font-weight: 600;font-size: var(--sl-text-lg);">Revisión a fondo</a>
@@ -58,25 +84,6 @@ Escribe código claro y rápido capaz de manejar todas las condiciones de error.
     <a href="learn/samples/" class="button" style="color:var(--sl-color-white);text-decoration:none;font-weight: 600;font-size: var(--sl-text-lg);">Más ejemplos de código</a>
 </IndexUrl>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # La comunidad Zig es descentralizada
 Todos son libres para mantener su propio lugar de reunión para la comunidad.
 No existe el concepto de "oficial" o "no oficial", no obstante, cada lugar de reunión tiene sus propias reglas y moderadores.
@@ -86,38 +93,19 @@ No existe el concepto de "oficial" o "no oficial", no obstante, cada lugar de re
 	<a href="https://github.com/ziglang/zig/wiki/Community" class="button" style="color:var(--sl-color-white);text-decoration:none;font-weight: 600;font-size: var(--sl-text-lg);">Ver todas las comunidades</a>
 </IndexUrl>
 
-
-
-
-
-
-
 # Desarrollo principal
 El repositorio de Zig se encuentra en [https://github.com/ziglang/zig](https://github.com/ziglang/zig), donde también damos seguimiento a errores y discusiones de propuestas.
 Los contribuyentes deberán seguir el [Código de conducta de Zig](https://github.com/ziglang/zig/blob/master/.github/CODE_OF_CONDUCT.md).
 
-
-
-
-
-
-
-
-
-
 ## La ZSF es una corporación sin fines de lucro 501(c)(3).
 
-La Zig Software Foundation es una corporación sin fines de lucro fundada en 2020 por Andrew Kelly, el creador de Zig, con el fin de sostener el desarrollo del lenguaje. Actualmente, la ZSF es capaz de ofrecer empleo con remuneración competitiva a un pequeño número de contribuyentes. Esperamos ser capaces de extender esta oferta a más contribuyentes en el futuro. 
+La Zig Software Foundation es una corporación sin fines de lucro fundada en 2020 por Andrew Kelly, el creador de Zig, con el fin de sostener el desarrollo del lenguaje. Actualmente, la ZSF es capaz de ofrecer empleo con remuneración competitiva a un pequeño número de contribuyentes. Esperamos ser capaces de extender esta oferta a más contribuyentes en el futuro.
 
 La Zig Software Foundation se mantiene con donaciones.
 
 <IndexUrl>
 	<a href="zsf/" class="button" style="color:var(--sl-color-white);text-decoration:none;font-weight: 600;font-size: var(--sl-text-lg);">Saber Más</a>
 </IndexUrl>
-
-
-
-
 
 # Patrocinadores Corporativos
 Las siguientes compañías proveen apoyo económico directo a la Zig Software Foundation.
@@ -130,9 +118,3 @@ Gracias a la [gente que patrocina Zig](zsf/), el proyecto se debe a la comunidad
 <GithubSponsors/>
 
 Esta sección se actualiza al inicio de cada mes.
-
-
-
-
-
-
